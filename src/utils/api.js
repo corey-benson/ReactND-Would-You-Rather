@@ -5,12 +5,26 @@ import {
   _saveQuestionAnswer
 } from "./_DATA";
 
+function formatUsers(users) {
+  return Object.keys(users)
+    .reduce((formattedUsers, id) => {
+      const user = users[id]
+
+      formattedUsers[id] = {
+        ...user,
+        answers: Object.keys(user.answers)
+      }
+
+      return formattedUsers
+    }, {})
+}
+
 export function getInitialData() {
   return Promise.all([
     _getUsers(),
     _getQuestions()
   ]).then(([users, questions]) => ({
-    users,
+    users: formatUsers(users),
     questions
   }))
 
