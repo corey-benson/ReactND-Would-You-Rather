@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 class AddQuestion extends Component {
   state = {
-    question: '',
     optionOne: '',
     optionTwo: '',
   }
@@ -14,27 +13,23 @@ class AddQuestion extends Component {
     }))
   }
   isDisabled = () => {
-    const { question, optionOne, optionTwo } = this.state
-    return question === ''
-      || optionOne === ''
-      || optionTwo === ''
+    const { optionOne, optionTwo } = this.state
+    return optionOne === '' || optionTwo === ''
+  }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    /* #TODO Redirect to home page with React Router */
+    console.log('Would You Rather: ', this.state)
   }
 
   render() {
-    const { question, optionOne, optionTwo } = this.state
+    const { optionOne, optionTwo } = this.state
 
     return (
-      <form className='add-form'>
-        <h3 style={{ marginBottom: 5 }}>What is your question?</h3>
-        <input
-          value={question}
-          onChange={this.handleInputChange}
-          name='question'
-          className='input'
-          type='text'
-        />
-
-        <h3>What are the options?</h3>
+      <form className='add-form' onSubmit={this.handleSubmit}>
+        <h3 style={{ marginBottom: 5 }}>Would You Rather?</h3>
+        
+        <h6>Add your options below.</h6>
 
         <label className='label' htmlFor='optionOne'>Option One</label>
         <input
