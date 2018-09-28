@@ -13,6 +13,12 @@ class AddQuestion extends Component {
       [name]: value
     }))
   }
+  isDisabled = () => {
+    const { question, optionOne, optionTwo } = this.state
+    return question === ''
+      || optionOne === ''
+      || optionTwo === ''
+  }
 
   render() {
     const { question, optionOne, optionTwo } = this.state
@@ -50,7 +56,7 @@ class AddQuestion extends Component {
           type='text'
         />
 
-        <button className='btn' type='submit'>
+        <button className='btn' type='submit' disabled={this.isDisabled()}>
           Submit
         </button>
       </form>  
