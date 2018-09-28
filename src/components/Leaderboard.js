@@ -1,9 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 function Leaderboard({ users }) {
-  console.log('users: ', users)
   return (
-    <div>Leaderboard</div>
+    <ul>
+      {users.map((user) => (
+        <li className='user' key={user.id}>
+          <img src={user.avatarURL} alt={`Avatar for ${user.name}`} />
+          <div>
+            <h1>{user.name}</h1>
+            <p>{user.questions} Questions</p>
+            <p>{user.answers} Answers</p>
+          </div>
+        </li>
+      ))}
+    </ul>
   )
 }
 function mapStateProps({ users }) {
