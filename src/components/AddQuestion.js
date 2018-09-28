@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { handleAddQuestion } from '../actions/questions'
 
 class AddQuestion extends Component {
   state = {
@@ -19,7 +21,11 @@ class AddQuestion extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     /* #TODO Redirect to home page with React Router */
-    console.log('Would You Rather: ', this.state)
+    // console.log('Would You Rather: ', this.state)
+    const { optionOne, optionTwo } = this.state
+    // console.log('Would You Rather One: ', optionOne)
+    // console.log('Would You Rather Two: ', optionTwo)
+    this.props.dispatch(handleAddQuestion(optionOne, optionTwo))
   }
 
   render() {
@@ -59,4 +65,4 @@ class AddQuestion extends Component {
   }
 }
 
-export default AddQuestion
+export default connect()(AddQuestion)
