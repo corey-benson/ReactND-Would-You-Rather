@@ -40,7 +40,7 @@ a {
   justify-content: space-between;
 }
 
-.poll-author {
+.question-author {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +48,7 @@ a {
   text-transform: uppercase;
 }
 
-.poll-author img {
+.question-author img {
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -129,13 +129,13 @@ li {
   font-weight: 600;
 }
 
-.add-poll-container {
+.add-question-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.poll-container {
+.question-container {
   width: 60%;
   margin: 0px auto;
   display: flex;
