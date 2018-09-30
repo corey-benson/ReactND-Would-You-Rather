@@ -25,9 +25,11 @@ class Question extends Component {
       return <p>This question does not exist!</p>
     }
 
-    const { question, vote, authorAvatar, authorName, totalVotes } = this.props
+    const { question, vote, authorAvatar, authorName } = this.props
     const optionOne = question.optionOne
     const optionTwo = question.optionTwo
+    const totalVotes = optionOne.votes.length + optionTwo.votes.length  
+    console.log('TOTAL VOTES: ', totalVotes)
 
     return (
       <div className='question-container'>
@@ -37,7 +39,7 @@ class Question extends Component {
         <h1 className='question'>Would You Rather?</h1>
         <ul>
           {[optionOne, optionTwo].map((question, key) => { 
-            const count = [key[0] + 'Votes'].length
+            const count = question.votes.length
             let option = ''
 
             console.log('Votes Length: ', count)
@@ -47,11 +49,6 @@ class Question extends Component {
               <li
                 onClick={() => {
                   if (vote === null && !this.answered) {
-                    // if (key == 0) {
-                    //   option = 'optionOne'
-                    // } else {
-                    //   option = 'optionTwo'
-                    // }
                     option = (key === 0) ? 'optionOne' : 'optionTwo'
                     this.handleAnswer(option)
                   }
@@ -92,14 +89,9 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
   console.log('question: ', question)
   console.log('RESULTS: ', Object.keys(user.answers).includes(question))
 
-  const getVoteKeys = () => [optionOneVotes, optionTwoVotes]
+  const chkVoteKeys = () => [optionOneVotes, optionTwoVotes]
 
-  const totalVotes = getVoteKeys()
-    .reduce((total, key) => total + [key].length, 0)
-
-  console.log('TOTAL VOTES: ', totalVotes)
-
-  const vote = getVoteKeys().reduce((vote, key) => {
+  const vote = chkVoteKeys().reduce((vote, key) => {
     if (vote !== null) {
       return vote[0]
     }
@@ -118,7 +110,6 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
     vote,
     hasVoted,
     authedUser,
-    totalVotes,
     authorName: users[question.author].name,
     authorAvatar: users[question.author].avatarURL
   }
