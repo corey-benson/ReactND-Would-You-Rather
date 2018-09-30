@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { getPercentage } from '../utils/helpers'
 import { handleAnswerQuestion } from '../actions/answers'
 
 class Question extends Component {
@@ -21,10 +22,10 @@ class Question extends Component {
   render() {
     console.log('PROPS: ', this.props)
     if (this.props.question === null) {
-      return <p>This question does not exist</p>
+      return <p>This question does not exist!</p>
     }
 
-    const { question, vote, authorAvatar, authorName } = this.props
+    const { question, vote, authorAvatar, authorName, totalVotes } = this.props
     const optionOne = question.optionOne
     const optionTwo = question.optionTwo
 
@@ -36,21 +37,22 @@ class Question extends Component {
         </div>
         <ul>
           {[optionOne, optionTwo].map((question, key) => { 
-            {/* console.log('LOG: ', [key[0] + 'Votes'].length) */}
             const count = [key[0] + 'Votes'].length
             let option = ''
 
+            console.log('Votes Length: ', count)
             console.log('LOG: ', question)
 
             return (
               <li
                 onClick={() => {
                   if (vote === null && !this.answered) {
-                    if (key == 0) {
-                      option = 'optionOne'
-                    } else {
-                      option = 'optionTwo'
-                    }
+                    // if (key == 0) {
+                    //   option = 'optionOne'
+                    // } else {
+                    //   option = 'optionTwo'
+                    // }
+                    option = (key === 0) ? 'optionOne' : 'optionTwo'
                     this.handleAnswer(option)
                   }
                   console.log('ANSWER: ', option)
@@ -61,7 +63,8 @@ class Question extends Component {
                   ? question.text
                   : <div className='result'>
                       <span>{question.text}</span>
-                      <span>{key}</span>
+                    <span>{getPercentage(count, totalVotes)}% ({count} out of {totalVotes} votes)</span>
+                      {/* <span>{key}</span> */}
                     </div>}
               </li>
             )
@@ -89,14 +92,21 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
   console.log('question: ', question)
   console.log('RESULTS: ', Object.keys(user.answers).includes(question))
 
-  const vote = [optionOneVotes, optionTwoVotes].reduce((vote, key) => {
+  const getVoteKeys = () => [optionOneVotes, optionTwoVotes]
+
+  const totalVotes = getVoteKeys()
+    .reduce((total, key) => total + [key].length, 0)
+
+  console.log('TOTAL VOTES: ', totalVotes)
+
+  const vote = getVoteKeys().reduce((vote, key) => {
     if (vote !== null) {
       return vote[0]
     }
 
-    console.log('VOTE: ', vote)
-    console.log('KEY: ', key)
-    console.log('AuthedUser: ', authedUser)
+    // console.log('VOTE: ', vote)
+    // console.log('KEY: ', key)
+    // console.log('AuthedUser: ', authedUser)
 
     return key.includes(authedUser)
       ? key
@@ -108,6 +118,7 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
     vote,
     hasVoted,
     authedUser,
+    totalVotes,
     authorName: users[question.author].name,
     authorAvatar: users[question.author].avatarURL
   }
