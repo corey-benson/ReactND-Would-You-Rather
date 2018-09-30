@@ -7,6 +7,9 @@ import AddQuestion from './AddQuestion'
 import Question from './Question'
 import LoadingBar from 'react-redux-loading'
 
+// unanswered - loxhs1bqm25b708cmbf3g
+// answered - xj352vofupe1dqz9emx13r
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
@@ -18,7 +21,7 @@ class App extends Component {
         <LoadingBar />
         {this.props.loading === true
           ? null
-          : <Question match={{ params: { id: 'xj352vofupe1dqz9emx13r' } }} />}
+          : <Question match={{ params: { id: 'xj352vofupe1dqz9emx13r' } }} />} 
       </div>
     )
   }

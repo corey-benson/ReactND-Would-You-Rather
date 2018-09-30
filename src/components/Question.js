@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { handleAnswerQuestion } from '../actions/answers'
 
 class Question extends Component {
+
   handleAnswer = (answer) => {
+    // Answer needs to be either optionOne or optionTwo
     const { question, authedUser } = this.props
     this.answered = true
-    console.log('Add Answer:', answer)
+    // this.props.dispatch(handleAnswerQuestion({
+    //   // authedUser,
+    //   answer,
+    //   id: question.id,
+    // }))
+    this.props.dispatch(handleAnswerQuestion(question.id, answer))
+    console.log('Add Answer ID:', question.id)
+    console.log('Add Answer Option:', answer)
   }
 
   render() {
@@ -28,22 +38,27 @@ class Question extends Component {
           {[optionOne, optionTwo].map((question, key) => { 
             {/* console.log('LOG: ', [key[0] + 'Votes'].length) */}
             const count = [key[0] + 'Votes'].length
+            let option = ''
 
             console.log('LOG: ', question)
 
             return (
               <li
                 onClick={() => {
-                  // if (vote === null && !this.answered) {
-                  //   this.handleAnswer(key[0])
-                  // }
-                  // this.handleAnswer(key[0])
-                  console.log(key)
+                  if (vote === null && !this.answered) {
+                    if (key == 0) {
+                      option = 'optionOne'
+                    } else {
+                      option = 'optionTwo'
+                    }
+                    this.handleAnswer(option)
+                  }
+                  console.log('ANSWER: ', option)
                 }}
                 key={question.text}  
                 className={`option ${vote === question.votes ? 'chosen' : ''}`}>
                 {vote === null
-                  ? key
+                  ? question.text
                   : <div className='result'>
                       <span>{question.text}</span>
                       <span>{key}</span>
@@ -79,9 +94,9 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
       return vote[0]
     }
 
-    // console.log('VOTE: ', vote)
-    // console.log('KEY: ', key)
-    // console.log('AuthedUser: ', authedUser)
+    console.log('VOTE: ', vote)
+    console.log('KEY: ', key)
+    console.log('AuthedUser: ', authedUser)
 
     return key.includes(authedUser)
       ? key
