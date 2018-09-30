@@ -19,7 +19,7 @@ class Dashboard extends Component {
 
   render() {
     const { showAnswered } = this.state
-    const { answered, unanswered } = this.props
+    const { answered, unanswered, users } = this.props
 
     const allQuestions = showAnswered === true
       ? answered
@@ -44,7 +44,11 @@ class Dashboard extends Component {
           {allQuestions.map((question) => (
             <li key={question.id}>
               <Link to={`questions/${question.id}`}>
+                <div className='question-author'>
+                  <img src={users[question.author].avatarURL} alt="Author's avatar" /><em>{users[question.author].name} asks:</em>
+                </div>
                 <em>Would You Rather</em>... {question.optionOne.text}
+                <button className='btn'>View Poll</button>
               </Link>
             </li>
           ))}
@@ -55,9 +59,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps({ authedUser, users, questions }) {
-
   const answers = users[authedUser].answers
-
   const answered = answers.map((id) => questions[id])
     .sort((a, b) => b.timestamp - a.timestamp)
 
@@ -68,7 +70,8 @@ function mapStateToProps({ authedUser, users, questions }) {
      
   return {
     answered,
-    unanswered
+    unanswered,
+    users
   }
 }
 
