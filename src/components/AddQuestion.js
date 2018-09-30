@@ -20,11 +20,8 @@ class AddQuestion extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    /* #TODO Redirect to home page with React Router */
-    // console.log('Would You Rather: ', this.state)
     const { optionOne, optionTwo } = this.state
-    // console.log('Would You Rather One: ', optionOne)
-    // console.log('Would You Rather Two: ', optionTwo)
+    this.props.history.push('/')
     this.props.dispatch(handleAddQuestion(optionOne, optionTwo))
   }
 

@@ -31,10 +31,10 @@ class Question extends Component {
 
     return (
       <div className='question-container'>
-        <h1 className='question'>Would You Rather?</h1>
         <div className='question-author'>
           <em>Asked by {authorName}</em> <img src={authorAvatar} alt="Author's avatar" />
         </div>
+        <h1 className='question'>Would You Rather?</h1>
         <ul>
           {[optionOne, optionTwo].map((question, key) => { 
             const count = [key[0] + 'Votes'].length
