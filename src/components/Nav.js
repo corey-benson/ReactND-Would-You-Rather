@@ -65,4 +65,4 @@ function mapStateToProps({ authedUser, users, id }) {
   }
 }
 
-export default connect(mapStateToProps)(Nav)
+export default connect(mapStateToProps, null, null, {pure: false})(Nav)

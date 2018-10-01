@@ -34,6 +34,7 @@ class App extends Component {
                     <PrivateRoute path='/leaderboard' component={Leaderboard} />
                     <PrivateRoute path='/questions/:id' component={Question} />
                     <PrivateRoute path='/add' component={AddQuestion} />
+                    {/* <PrivateRoute component={FourOhFour} /> */}
                     {/* <PrivateRoute path="*" component={FourOhFour} /> */}
                   </Switch>
                 </div>}
