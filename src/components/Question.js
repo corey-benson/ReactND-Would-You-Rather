@@ -47,7 +47,8 @@ class Question extends Component {
 
             return (
               <li
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault()
                   if (vote === null && !this.answered) {
                     option = (key === 0) ? 'optionOne' : 'optionTwo'
                     this.handleAnswer(option)

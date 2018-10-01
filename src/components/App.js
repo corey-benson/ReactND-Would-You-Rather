@@ -48,7 +48,6 @@ function mapStateToProps({ authedUser, users, questions }) {
 
   console.log('INIT Qs: ', questions)
   return {
-    // loading: authedUser === null
     loading: isNullObj(questions) || isNullObj(users)
   }
 }
