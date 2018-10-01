@@ -118,6 +118,22 @@ a {
 .nav li:first-child {
   padding-left: 0;
 }
+.nav li h2 {
+  margin: -6px 0 0;
+}
+.logged {
+  margin-left: 10vw;
+}
+.logged-user {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+.logged-user-avatar {
+  margin-top: -14px;
+  margin-right: 2px;
+  height: 40px;
+  /* border-radius: 25px; */
+}
 
 ul {
   padding-left: 0;

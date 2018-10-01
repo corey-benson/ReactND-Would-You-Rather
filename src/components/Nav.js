@@ -28,6 +28,7 @@ class Nav extends Component {
     return (
       <nav className='nav'>
         <ul>
+          <li><h2>"Would You Rather?"</h2></li>
           <li>
             <NavLink to='/' exact activeClassName='active'>
               Home
@@ -43,8 +44,8 @@ class Nav extends Component {
               Add Question
             </NavLink>
           </li>
-          <li>
-            <span className='curr-user'><img className='avatar' src={currentUser.avatarURL} alt={currentUser.name} /> Hello, {currentUser.name}</span>
+          <li className='logged'>
+            <span className='logged-user'><img className='logged-user-avatar' src={currentUser.avatarURL} alt={currentUser.name} /> Hello, {currentUser.name}</span>
           </li>
           <li>
             <NavLink to='#' activeClassName='active' onClick={this.handleLogOut}>Sign Out</NavLink>
