@@ -1,15 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { setAuthedUser } from "../actions/authedUser"
+import { Link, Redirect } from 'react-router-dom'
 
 class UserLogin extends Component {
+  state = {
+    username: '',
+    login: false
+  }
+
+  handleLogin = (user) => {
+    console.log('user login: ', user)
+    this.setState(() => ({ 
+      username: user.id,
+      login: true 
+    }))
+
+    this.props.dispatch(setAuthedUser(user.id))
+    console.log('user login check: ', true)
+    console.log('user login: ', user)
+  }
+
   render() {
     const { users, authedUser } = this.props
-
-    // avatarURL:"https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight2&accessoriesType=Kurt&hairColor=Brown&facialHairType=Blank&clotheType=ShirtVNeck&clotheColor=PastelRed&eyeType=Happy&eyebrowType=RaisedExcitedNatural&mouthType=Default&skinColor=Light"
-    // id:"sarahedo"
-    // name:"Sarah Edo"
-    //<img src={user.avatarURL} alt="Author's avatar" />
     
+    console.log('user login 2: ', this.state.login)
+    console.log('user username: ', this.state.username)
+    console.log('user authedUser: ', authedUser)
+
     return(
       <div className='login-container'>
         <h1>Would You Rather?</h1>
@@ -19,10 +37,7 @@ class UserLogin extends Component {
             <li 
               key={user.id}
               className='user'
-              onClick={() => {
-                
-                console.log('user: ', user)
-              }}
+              onClick={() => this.handleLogin(user)}
             >
               <img src={user.avatarURL} alt="Author's avatar" /><em>{user.name}</em> 
             </li>
