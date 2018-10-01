@@ -23,10 +23,15 @@ class UserLogin extends Component {
 
   render() {
     const { users, authedUser } = this.props
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
     
     console.log('user login 2: ', this.state.login)
     console.log('user username: ', this.state.username)
     console.log('user authedUser: ', authedUser)
+
+    if (this.state.login) {
+      return <Redirect to={from} />
+    }
 
     return(
       <div className='login-container'>

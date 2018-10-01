@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import UserLogin from './UserLogin'
@@ -8,7 +8,8 @@ import LoadingBar from 'react-redux-loading'
 import Leaderboard from './Leaderboard'
 import AddQuestion from './AddQuestion'
 import Question from './Question'
-import Nav from './Nav'
+import PrivateRoute from './PrivateRoute'
+import { isNullObj } from '../utils/helpers'
 
 // unanswered - loxhs1bqm25b708cmbf3g
 // answered - xj352vofupe1dqz9emx13r
@@ -24,16 +25,18 @@ class App extends Component {
         <Fragment>
           <LoadingBar />
           <div className='container'>
-            <Nav />
             {this.props.loading === true
               ? null
               : <div>
-                <Route path='/' exact component={UserLogin} />
-                {/* <Route path='/' exact component={Dashboard} /> */}
-                <Route path='/leaderboard' component={Leaderboard} />
-                <Route path='/questions/:id' component={Question} />
-                <Route path='/add' component={AddQuestion} />
-              </div>}
+                  <Switch>
+                    <Route path="/login" component={UserLogin} />
+                    <PrivateRoute path="/" exact component={Dashboard} />
+                    <PrivateRoute path='/leaderboard' component={Leaderboard} />
+                    <PrivateRoute path='/questions/:id' component={Question} />
+                    <PrivateRoute path='/add' component={AddQuestion} />
+                    {/* <PrivateRoute path="*" component={FourOhFour} /> */}
+                  </Switch>
+                </div>}
           </div>
         </Fragment>
       </Router>
@@ -41,9 +44,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ authedUser, users, questions }) {
+
+  console.log('INIT Qs: ', questions)
   return {
-    loading: authedUser === null
+    // loading: authedUser === null
+    loading: isNullObj(questions) || isNullObj(users)
   }
 }
 
