@@ -114,7 +114,6 @@ a {
   justify-content: flex-start;
   text-decoration: none;
 }
-
 .nav li:first-child {
   padding-left: 0;
 }
@@ -271,3 +270,84 @@ input {
 .input:focus {
   border-color: gray;
 }
+
+/* Leader Board */
+.entry {
+  display: flex;
+  margin: 1em 0;
+}
+.entry-user {
+  flex: 0 1 auto;
+  padding-bottom: 10px;
+}
+  .entry-user__avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 90px;
+    font-size: 70px;
+    line-height: 0;
+  }
+  .entry-user__avatar img {
+    width: 75%;
+    height: auto;
+  }
+  .entry-user__name {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+.entry-body {
+  display: flex;
+  flex: 1 1 0%;
+  position: relative;
+  padding: 5px 15px 15px;
+  border: 1px solid #CAD0D2;
+  border-radius: 4px;
+}
+.entry-body:after,
+.entry-body:before {
+  right: 100%;
+  top: 35px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.entry-body:after {
+  border-color: transparent;
+  border-right-color: #ffffff;
+  border-width: 8px;
+  margin-top: -8px;
+}
+.entry-body:before {
+  border-color: transparent;
+  border-right-color: #CAD0D2;
+  border-width: 9px;
+  margin-top: -9px;
+}
+  .entry-body__content {
+    font-size: 15px;
+  }
+  .entry-body__score {
+    margin-top: 5px;
+    margin-left: auto;
+    padding: 1.5em 2em;
+    border-radius: 6px;
+    background-color: #6ACAFD;
+    color: white;
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .entry-body__score span {
+    margin: 10px 0 0;
+    color: white;
+    font-size: 4em;
+    font-style: italic;
+  }
