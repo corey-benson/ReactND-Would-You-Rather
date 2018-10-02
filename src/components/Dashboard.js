@@ -26,7 +26,7 @@ class Dashboard extends Component {
       : unanswered
 
     return(
-      <div>
+      <div className='app-container'>
         <div className='dashboard-toggle'>
           <button
             style={{ textDecoration: showAnswered === false ? 'underline' : null }}

@@ -28,7 +28,7 @@ class Nav extends Component {
     return (
       <nav className='nav'>
         <ul>
-          <li><h2>"Would You Rather?"</h2></li>
+          <li><h2>Would You Rather?</h2></li>
           <li>
             <NavLink to='/' exact activeClassName='active'>
               Home

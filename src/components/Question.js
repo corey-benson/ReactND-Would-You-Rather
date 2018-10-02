@@ -25,50 +25,55 @@ class Question extends Component {
       return <p>This question does not exist!</p>
     }
 
-    const { question, vote, authorAvatar, authorName } = this.props
+    const { user, question, vote, authorAvatar, authorName } = this.props
     const optionOne = question.optionOne
     const optionTwo = question.optionTwo
     const totalVotes = optionOne.votes.length + optionTwo.votes.length  
     console.log('TOTAL VOTES: ', totalVotes)
 
+    // const yourVote = votes.some(voter => voter === currentUser.id);
+    // console.log('yourVote: ', yourVote)
+
     return (
-      <div className='question-container'>
-        <div className='question-author'>
-          <em>Asked by {authorName}</em> <img src={authorAvatar} alt="Author's avatar" />
+      <div className='app-container'>
+        <div className='question-container'>
+          <div className='question-author'>
+            <em>Asked by {authorName}</em> <img src={authorAvatar} alt="Author's avatar" />
+          </div>
+          <h1 className='question'>Would You Rather?</h1>
+          <ul>
+            {[optionOne, optionTwo].map((question, key) => { 
+              const count = question.votes.length
+              let option = ''
+
+              console.log('Votes Length: ', count)
+              console.log('LOG: ', question)
+
+              return (
+                <li
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (vote === null && !this.answered) {
+                      option = (key === 0) ? 'optionOne' : 'optionTwo'
+                      this.handleAnswer(option)
+                    }
+                    console.log('ANSWER: ', option)
+                  }}
+                  key={question.text}  
+                  className={`option ${question.votes.includes(vote) || vote === question.votes ? 'chosen' : ''}`}>
+                  {vote === null
+                    ? question.text
+                    : <div className='result'>
+                        <span>{question.text}</span>
+                        <span>{getPercentage(count, totalVotes)}% ({count} out of {totalVotes} votes)</span>
+                        {/* <span>{key}</span> */}
+                      </div>}
+                </li>
+              )
+            })}
+          </ul>
         </div>
-        <h1 className='question'>Would You Rather?</h1>
-        <ul>
-          {[optionOne, optionTwo].map((question, key) => { 
-            const count = question.votes.length
-            let option = ''
-
-            console.log('Votes Length: ', count)
-            console.log('LOG: ', question)
-
-            return (
-              <li
-                onClick={(e) => {
-                  e.preventDefault()
-                  if (vote === null && !this.answered) {
-                    option = (key === 0) ? 'optionOne' : 'optionTwo'
-                    this.handleAnswer(option)
-                  }
-                  console.log('ANSWER: ', option)
-                }}
-                key={question.text}  
-                className={`option ${vote === question.votes ? 'chosen' : ''}`}>
-                {vote === null
-                  ? question.text
-                  : <div className='result'>
-                      <span>{question.text}</span>
-                    <span>{getPercentage(count, totalVotes)}% ({count} out of {totalVotes} votes)</span>
-                      {/* <span>{key}</span> */}
-                    </div>}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+      </div>  
     )
   }
 }
@@ -107,6 +112,7 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
   }, null)
 
   return {
+    user,
     question,
     vote,
     hasVoted,
