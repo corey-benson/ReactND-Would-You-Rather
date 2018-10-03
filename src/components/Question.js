@@ -6,14 +6,9 @@ import { handleAnswerQuestion } from '../actions/answers'
 class Question extends Component {
 
   handleAnswer = (answer) => {
-    // Answer needs to be either optionOne or optionTwo
+    // Answer to be either optionOne or optionTwo
     const { question, authedUser } = this.props
     this.answered = true
-    // this.props.dispatch(handleAnswerQuestion({
-    //   // authedUser,
-    //   answer,
-    //   id: question.id,
-    // }))
     this.props.dispatch(handleAnswerQuestion(question.id, answer))
     console.log('Add Answer ID:', question.id)
     console.log('Add Answer Option:', answer)
@@ -29,10 +24,6 @@ class Question extends Component {
     const optionOne = question.optionOne
     const optionTwo = question.optionTwo
     const totalVotes = optionOne.votes.length + optionTwo.votes.length  
-    console.log('TOTAL VOTES: ', totalVotes)
-
-    // const yourVote = votes.some(voter => voter === currentUser.id);
-    // console.log('yourVote: ', yourVote)
 
     return (
       <div className='app-container'>
@@ -57,7 +48,6 @@ class Question extends Component {
                       option = (key === 0) ? 'optionOne' : 'optionTwo'
                       this.handleAnswer(option)
                     }
-                    console.log('ANSWER: ', option)
                   }}
                   key={question.text}  
                   className={`option ${question.votes.includes(vote) || vote === question.votes ? 'chosen' : ''}`}>
@@ -66,7 +56,6 @@ class Question extends Component {
                     : <div className='result'>
                         <span>{question.text}</span>
                         <span>{getPercentage(count, totalVotes)}% ({count} out of {totalVotes} votes)</span>
-                        {/* <span>{key}</span> */}
                       </div>}
                 </li>
               )
@@ -92,19 +81,12 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
     }
   }
 
-  console.log('question: ', question)
-  console.log('RESULTS: ', Object.keys(user.answers).includes(question))
-
   const chkVoteKeys = () => [optionOneVotes, optionTwoVotes]
 
   const vote = chkVoteKeys().reduce((vote, key) => {
     if (vote !== null) {
       return vote[0]
     }
-
-    // console.log('VOTE: ', vote)
-    // console.log('KEY: ', key)
-    // console.log('AuthedUser: ', authedUser)
 
     return key.includes(authedUser)
       ? key

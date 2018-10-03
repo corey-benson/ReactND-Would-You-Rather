@@ -12,9 +12,6 @@ import FourOhFour from './FourOhFour'
 import PrivateRoute from './PrivateRoute'
 import { isNullObj } from '../utils/helpers'
 
-// unanswered - loxhs1bqm25b708cmbf3g
-// answered - xj352vofupe1dqz9emx13r
-
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
@@ -36,7 +33,6 @@ class App extends Component {
                     <PrivateRoute path='/questions/:id' component={Question} />
                     <PrivateRoute path='/add' component={AddQuestion} />
                     <PrivateRoute component={FourOhFour} />
-                    {/* <PrivateRoute path="*" component={FourOhFour} /> */}
                   </Switch>
                 </div>}
           </div>
@@ -48,7 +44,6 @@ class App extends Component {
 
 function mapStateToProps({ authedUser, users, questions }) {
 
-  console.log('INIT Qs: ', questions)
   return {
     loading: isNullObj(questions) || isNullObj(users)
   }

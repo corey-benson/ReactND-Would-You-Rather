@@ -13,22 +13,10 @@ function addAnswer({ authedUser, id, answer }) {
   }
 }
 
-// export function handleAnswerQuestion(qid, answer) {
-//   return (dispatch, getState) => {
-//     const { authedUser } = getState()
-//     dispatch(showLoading())
-//     return saveQuestionAnswer(authedUser, qid, answer)
-//       .then(() => dispatch(addAnswer(authedUser, qid, answer)))
-//       .then(() => dispatch(hideLoading()))
-//   }
-// }
-
 export function handleAnswerQuestion(qid, answer) {
   return (dispatch, getState) => {
     const { authedUser } = getState()
     dispatch(showLoading())
-    console.log('## - qid: ', qid)
-    console.log('## - answer: ', answer)
     return saveQuestionAnswer(authedUser, qid, answer)
       .then(() => {
         dispatch(handleInitialData())

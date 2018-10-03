@@ -29,13 +29,12 @@ class Dashboard extends Component {
       <div className='app-container'>
         <div className='dashboard-toggle'>
           <button
-            style={{ textDecoration: showAnswered === false ? 'underline' : null }}
+            className={`${showAnswered === false ? 'active-tab' : ''}`}
             onClick={this.showUnaswered}>
             Unanswered
           </button>
-          <span> | </span>
           <button
-            style={{ textDecoration: showAnswered === true ? 'underline' : null }}
+            className={`${showAnswered === true ? 'active-tab' : ''}`}
             onClick={this.showAnswered}>
             Answered
           </button>

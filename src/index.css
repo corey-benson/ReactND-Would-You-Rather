@@ -199,8 +199,17 @@ li {
 
 .dashboard-toggle button {
   border: none;
-  background: transparent;
-  font-size: 22px;
+  background: white;
+  font-size: 18px;
+  color: lightslategrey;
+}
+.dashboard-toggle button.active-tab {
+  padding: 5px 10px;
+  border: 1px solid white;
+  color: white;
+  background: #339AED;
+  border-radius: 6px;
+  font-size: 24px;
 }
 
 .dashboard-list {
