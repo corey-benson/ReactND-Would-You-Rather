@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getPercentage } from '../utils/helpers'
 import { handleAnswerQuestion } from '../actions/answers'
+import FourOhFour from './FourOhFour'
 
 class Question extends Component {
 
@@ -17,7 +18,7 @@ class Question extends Component {
   render() {
     console.log('PROPS: ', this.props)
     if (this.props.question === null) {
-      return <p>This question does not exist!</p>
+      return <FourOhFour />
     }
 
     const { user, question, vote, authorAvatar, authorName } = this.props
@@ -71,9 +72,8 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
   const { id } = match.params
   const question = questions[id]
   const user = users[authedUser]
-  const optionOneVotes = question.optionOne.votes
-  const optionTwoVotes = question.optionTwo.votes
   const hasVoted = Object.keys(user.answers).includes(question)
+  let vote = null;
 
   if (!question) {
     return {
@@ -81,17 +81,18 @@ function mapStateToProps({ authedUser, questions, users }, { match }) {
     }
   }
 
-  const chkVoteKeys = () => [optionOneVotes, optionTwoVotes]
+  if (question.optionOne.votes !== undefined && question.optionTwo.votes !== undefined) {
+    const chkVoteKeys = () => [question.optionOne.votes, question.optionTwo.votes]
+    vote = chkVoteKeys().reduce((vote, key) => {
+      if (vote !== null) {
+        return vote[0]
+      }
 
-  const vote = chkVoteKeys().reduce((vote, key) => {
-    if (vote !== null) {
-      return vote[0]
-    }
-
-    return key.includes(authedUser)
-      ? key
-      : vote
-  }, null)
+      return key.includes(authedUser)
+        ? key
+        : vote
+    }, null)
+  }
 
   return {
     user,
