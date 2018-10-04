@@ -10,7 +10,6 @@ class UserLogin extends Component {
   }
 
   handleLogin = (user) => {
-    console.log('user login: ', user)
     this.setState(() => ({ 
       username: user.id,
       login: true 

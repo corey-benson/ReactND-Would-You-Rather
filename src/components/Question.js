@@ -38,9 +38,6 @@ class Question extends Component {
               const count = question.votes.length
               let option = ''
 
-              console.log('Votes Length: ', count)
-              console.log('LOG: ', question)
-
               return (  
                 <li
                   onClick={(e) => {
