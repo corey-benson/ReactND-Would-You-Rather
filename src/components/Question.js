@@ -41,7 +41,7 @@ class Question extends Component {
               console.log('Votes Length: ', count)
               console.log('LOG: ', question)
 
-              return (
+              return (  
                 <li
                   onClick={(e) => {
                     e.preventDefault()
@@ -50,7 +50,7 @@ class Question extends Component {
                       this.handleAnswer(option)
                     }
                   }}
-                  key={question.text}  
+                  key={key}  
                   className={`option ${question.votes.includes(vote) || vote === question.votes ? 'chosen' : ''}`}>
                   {vote === null
                     ? question.text
